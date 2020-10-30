@@ -26,6 +26,7 @@ public class Main extends Configured implements Tool {
         }
 
         Job job = new org.apache.hadoop.mapreduce.Job();
+
         job.setJarByClass(Main.class);
         job.setJobName("WordCounter");
 
@@ -37,6 +38,16 @@ public class Main extends Configured implements Tool {
         job.setOutputFormatClass(TextOutputFormat.class);
         job.setMapperClass(Map.class);
         job.setReducerClass(Reduce.class);
+
+        //job.setNumReduceTasks(0);
+        /*
+        job.setNumReduceTasks(2);
+        job.setPartitionerClass(CustomPartitioner.class);
+        job.setCombinerClass(Reduce.class);
+        */
+
+
+
 
         int returnValue = job.waitForCompletion(true) ? 0:1;
         System.out.println("job.isSuccessful " + job.isSuccessful());
